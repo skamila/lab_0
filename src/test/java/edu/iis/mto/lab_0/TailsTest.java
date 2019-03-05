@@ -2,10 +2,12 @@ package edu.iis.mto.lab_0;
 
 import java.util.List;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
 public class TailsTest {
@@ -16,27 +18,31 @@ public class TailsTest {
 
     @Before
     public void setup() {
-
         tailsGenerator = new TailsGenerator();
-        tails = tailsGenerator.tails(HELLO);
+    }
+
+    @Test
+    public void tailsShouldReturnEmptyListIfParameterIsNull() {
+        tails = tailsGenerator.tails(null);
+        assertThat(tails, empty());
     }
 
     @Test
     public void tailsShouldReturnListOfStringsOfSizeEqualsToInputStringLengthPlusOne() {
-
-        assertThat(tails, Matchers.hasSize(HELLO.length() + 1));
+        tails = tailsGenerator.tails(HELLO);
+        assertThat(tails, hasSize(HELLO.length() + 1));
     }
 
     @Test
     public void tailsShouldReturnFullStringAsFirstElement() {
-
-        assertThat(tails.get(0), Matchers.equalTo(HELLO));
+        tails = tailsGenerator.tails(HELLO);
+        assertThat(tails.get(0), equalTo(HELLO));
     }
 
     @Test
     public void tailsShouldReturnEmptyStringAsLastElement() {
-
-        assertThat(tails.get(tails.size() - 1), Matchers.equalTo(""));
+        tails = tailsGenerator.tails(HELLO);
+        assertThat(tails.get(tails.size() - 1), equalTo(""));
     }
 
 }
